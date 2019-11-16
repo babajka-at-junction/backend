@@ -1,0 +1,23 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "babajka-at-junction backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/babajka-at-junction/backend.git"
+  },
+  "author": "Babajka",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/babajka-at-junction/backend/issues"
+  },
+  "homepage": "https://github.com/babajka-at-junction/backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
