@@ -13,17 +13,19 @@ router.get('/counters', async (req, res) => {
 router.get('/visits/:y/:m/:d', async (req, res) => {
   const visits = mongoose.connection.db.collection('main');
   const { y, m, d } = req.params;
-  const start = new Date(Date.UTC(y, m, d, 0, 0, 0))
-  const end = new Date(Date.UTC(y, m, d, 23, 59, 59))
+  const start = new Date(`${y}-${m}-${d}T00:00:00.000Z`)
+  const end = new Date(`${y}-${m}-${d}T23:59:59.000Z`)
   const q = { start_at: { $gte: start, $lt: end} };
   const data = await visits.find(q).toArray();
+  let maxVisits = 0;
   const dataByCounters = data.reduce((acc, {counter_id, visits, start_at}) => {
     acc[counter_id] = acc[counter_id] || {};
     const hour = new Date(start_at).getHours();
     acc[counter_id][hour] = visits;
+    maxVisits = Math.max(maxVisits, visits)
     return acc;
   }, {})
-  res.json(dataByCounters);
+  res.json({ dataByCounters, maxVisits });
 });
 
 module.exports = router;
